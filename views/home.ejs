@@ -1,0 +1,284 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home page</title>
+</head>
+<body>
+    <h1>Hey from server</h1>
+
+   
+
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>URL Shortener</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fb;
+            color: #1f2937;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1000px;
+            margin: 60px auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .header h1 {
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #6b7280;
+            font-size: 16px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+
+        .form {
+            display: flex;
+            gap: 12px;
+        }
+
+        .form input {
+            flex: 1;
+            padding: 14px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .form input:focus {
+            border-color: #2563eb;
+        }
+
+        .form button {
+            padding: 14px 25px;
+            border: none;
+            border-radius: 8px;
+            background: #2563eb;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .form button:hover {
+            background: #1d4ed8;
+        }
+
+        .table-container {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 17px 20px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        th {
+            background: #f9fafb;
+            font-size: 14px;
+            color: #6b7280;
+            text-transform: uppercase;
+        }
+
+        td {
+            font-size: 15px;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .short-url {
+            color: #2563eb;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .short-url:hover {
+            text-decoration: underline;
+        }
+
+        .original-url {
+            max-width: 350px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 40px;
+            color: #6b7280;
+        }
+
+        @media (max-width: 700px) {
+            .container {
+                width: 95%;
+                margin: 30px auto;
+            }
+
+            .header h1 {
+                font-size: 32px;
+            }
+
+            .form {
+                flex-direction: column;
+            }
+
+            .form button {
+                width: 100%;
+            }
+
+            table {
+                font-size: 13px;
+            }
+
+            th,
+            td {
+                padding: 12px 8px;
+            }
+
+            .original-url {
+                max-width: 150px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="header">
+            <h1>URL Shortener</h1>
+            <p>Shorten your long URLs and track your clicks.</p>
+        </div>
+
+        <!-- URL Form -->
+        <div class="card">
+
+            <form action="/url" method="POST" class="form">
+
+                <input
+                    type="text"
+                    name="url"
+                    placeholder="Enter your original URL..."
+                    required
+                >
+
+                <button type="submit">
+                    Generate
+                </button>
+
+            </form>
+
+        </div>
+
+        <!-- URL Table -->
+        <div class="table-container">
+
+            <% if (urls.length === 0) { %>
+
+                <div class="empty">
+                    <p>No URLs created yet.</p>
+                </div>
+
+            <% } else { %>
+
+                <table>
+
+                    <thead>
+                        <tr>
+                            <th>S. No</th>
+                            <th>Short ID</th>
+                            <th>Original URL</th>
+                            <th>Clicks</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <% urls.forEach((url, index) => { %>
+
+                            <tr>
+
+                                <td>
+                                    <%= index + 1 %>
+                                </td>
+
+                                <td>
+                                    <a
+                                        href="/<%= url.shortId %>"
+                                        class="short-url"
+                                        target="_blank"
+                                    >
+                                        <%= url.shortId %>
+                                    </a>
+                                </td>
+
+                                <td class="original-url">
+                                    <%= url.redirectURL %>
+                                </td>
+
+                                <td>
+                                    <%= url.visitHistory.length %>
+                                </td>
+
+                            </tr>
+
+                        <% }) %>
+
+                    </tbody>
+
+                </table>
+
+            <% } %>
+
+        </div>
+
+    </div>
+
+</body>
+</html>
