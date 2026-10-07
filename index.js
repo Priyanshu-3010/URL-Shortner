@@ -22,6 +22,7 @@ app.set("views", path.join(__dirname, "/views"));
 
 // Middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 // Test / home page
 app.get("/test", async (req, res) => {
@@ -49,7 +50,7 @@ app.get("/:shortId", async (req, res) => {
                     },
                 },
             },
-            { new: true }
+            { returnDocument: "after"  }
         );
 
         if (!entry) {
