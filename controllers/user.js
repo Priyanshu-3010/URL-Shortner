@@ -33,14 +33,14 @@ async function handleUserLogin(req, res) {
             });
         }
 
-        const sessionId = uuid4();
 
-        setUser(sessionId, foundUser);
-        res.cookie("uid", sessionId, {
+        const token = setUser(foundUser);
+        res.cookie("uid", token, {
             httpOnly: true,
             sameSite: "lax",
+            secure: process.env.NODE_ENV === "production",
+            maxAge: 24 * 60 * 60 * 1000,
         });
-
         return res.redirect("/");
     } catch (error) {
         console.error("Login error:", error);
