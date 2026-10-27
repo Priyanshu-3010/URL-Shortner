@@ -11,6 +11,7 @@ const userRoute = require("./routes/user");
 const { restrictToLoggedinUserOnly } = require("./middelwares/auth");
 
 const app = express();
+app.set("trust proxy", 1);
 
 // View engine
 app.set("view engine", "ejs");
