@@ -4,186 +4,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Account | URL Shortener</title>
-
+    <title>Create Account | Shortly</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: Arial, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: linear-gradient(135deg, #0f172a, #1e1b4b);
-            color: #fff;
-            padding: 20px;
+            min-height: 100vh; display: grid; place-items: center; padding: 24px;
+            font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: #edf2ff; background: radial-gradient(ellipse at top right, #272454, #0b1020 65%);
         }
-
-        .signup-container {
-            width: 100%;
-            max-width: 420px;
-            padding: 36px;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-        }
-
-        .logo {
-            font-size: 30px;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 10px;
-            color: #a5b4fc;
-        }
-
-        h1 {
-            text-align: center;
-            font-size: 27px;
-            margin-bottom: 8px;
-        }
-
-        .subtitle {
-            text-align: center;
-            color: #a1a1aa;
-            font-size: 14px;
-            margin-bottom: 28px;
-            line-height: 1.5;
-        }
-
-        .form-group {
-            margin-bottom: 18px;
-        }
-
-        label {
-            display: block;
-            font-size: 14px;
-            margin-bottom: 8px;
-            color: #e4e4e7;
-        }
-
-        input {
-            width: 100%;
-            padding: 13px 14px;
-            border: 1px solid #3f3f58;
-            border-radius: 10px;
-            background: #18182b;
-            color: white;
-            font-size: 15px;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        input:focus {
-            border-color: #818cf8;
-        }
-
-        input::placeholder {
-            color: #71717a;
-        }
-
-        button {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 10px;
-            background: linear-gradient(90deg, #6366f1, #8b5cf6);
-            color: white;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 8px;
-            transition: opacity 0.2s, transform 0.2s;
-        }
-
-        button:hover {
-            opacity: 0.9;
-            transform: translateY(-1px);
-        }
-
-        .footer {
-            text-align: center;
-            color: #a1a1aa;
-            font-size: 13px;
-            margin-top: 24px;
-        }
-
-        .footer a {
-            color: #a5b4fc;
-            text-decoration: none;
-        }
-
-        .footer a:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 480px) {
-            .signup-container {
-                padding: 26px 22px;
-            }
+        .layout { width: 100%; max-width: 980px; display: grid; grid-template-columns: 1fr 1fr;
+            background: #11182bd9; border: 1px solid #ffffff16; border-radius: 26px;
+            overflow: hidden; box-shadow: 0 30px 100px #0006; }
+        .visual { padding: 48px; display: flex; flex-direction: column; justify-content: space-between;
+            background: linear-gradient(145deg, #28265b, #171c3b 70%, #151b30); min-height: 620px; }
+        .brand { font-size: 28px; font-weight: 850; letter-spacing: -1px; color: white; text-decoration: none; }
+        .brand span { color: #a5b4fc; }
+        .visual-content { margin: 60px 0; }
+        .tag { color: #c4b5fd; font-size: 11px; letter-spacing: 2px; font-weight: 800; text-transform: uppercase; }
+        .visual h2 { font-size: clamp(30px, 4vw, 43px); line-height: 1.13; letter-spacing: -1.5px; margin: 18px 0; }
+        .visual p { color: #b7c0db; line-height: 1.8; font-size: 14px; max-width: 340px; }
+        .benefits { display: grid; gap: 12px; margin-top: 28px; color: #d7def0; font-size: 13px; }
+        .benefits div::before { content: "✓"; color: #a5b4fc; font-weight: 900; margin-right: 10px; }
+        .form-side { padding: 42px 48px; display: flex; flex-direction: column; justify-content: center; }
+        .form-side h1 { font-size: 30px; letter-spacing: -1px; }
+        .subtitle { color: #9ba8c1; font-size: 13px; line-height: 1.7; margin: 10px 0 27px; }
+        .group { margin-bottom: 17px; }
+        label { display: block; color: #d7def0; font-size: 12px; font-weight: 650; margin-bottom: 9px; }
+        input { width: 100%; padding: 13px 14px; color: white; background: #0b1121; border: 1px solid #303b57; border-radius: 11px; outline: none; font: inherit; }
+        input:focus { border-color: #818cf8; box-shadow: 0 0 0 3px #818cf81c; }
+        input::placeholder { color: #69758f; }
+        .hint { font-size: 11px; color: #8491ac; margin-top: 7px; }
+        .submit { width: 100%; border: 0; padding: 14px; border-radius: 11px; background: linear-gradient(100deg, #6366f1, #8b5cf6); color: white; font-weight: 800; cursor: pointer; margin-top: 7px; }
+        .submit:hover { filter: brightness(1.08); }
+        .footer { color: #9ba8c1; text-align: center; margin-top: 24px; font-size: 13px; }
+        .footer a { color: #c4b5fd; text-decoration: none; font-weight: 700; }
+        .footer a:hover { text-decoration: underline; }
+        .error { color: #fda4af; background: #3a1b2b; border: 1px solid #713044; border-radius: 10px; padding: 12px; margin-bottom: 18px; font-size: 13px; }
+        @media (max-width: 720px) {
+            .layout { max-width: 440px; grid-template-columns: 1fr; }
+            .visual { display: none; }
+            .form-side { padding: 32px 26px; }
         }
     </style>
 </head>
-
 <body>
-    <main class="signup-container">
-        <div class="logo">Shortly.</div>
-
-        <h1>Create your account</h1>
-        <p class="subtitle">
-            Join us and start creating shorter, smarter links.
-        </p>
-
-        <form action="/user" method="POST">
-            <div class="form-group">
-                <label for="name">Full name</label>
-                <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    placeholder="Enter your full name"
-                    autocomplete="name"
-                    required
-                >
+    <main class="layout">
+        <section class="visual">
+            <a href="/signup" class="brand">shortly<span>.</span></a>
+            <div class="visual-content">
+                <div class="tag">Your links. Your space.</div>
+                <h2>Make every character count.</h2>
+                <p>Build clean, memorable links and keep track of every click in one simple workspace.</p>
+                <div class="benefits">
+                    <div>Create short and custom links</div>
+                    <div>Track clicks from your dashboard</div>
+                    <div>Keep your links organized</div>
+                </div>
             </div>
+            <p style="font-size:12px;color:#8f9bbb">One simple place for all your links.</p>
+        </section>
+        <section class="form-side">
+            <h1>Create your account</h1>
+            <p class="subtitle">Get started with Shortly. Your first short link is just a few steps away.</p>
 
-            <div class="form-group">
-                <label for="email">Email address</label>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="you@example.com"
-                    autocomplete="email"
-                    required
-                >
-            </div>
+            <% if (typeof error !== "undefined" && error) { %>
+                <div class="error" role="alert"><%= error %></div>
+            <% } %>
 
-            <div class="form-group">
-                <label for="password">Password</label>
-                <input
-                    type="password"
-                    id="password"
-                    name="password"
-                    placeholder="Create a password"
-                    autocomplete="new-password"
-                    minlength="8"
-                    required
-                >
-            </div>
-
-            <button type="submit">Create Account</button>
-        </form>
-
-        <p class="footer">
-            Already have an account?
-            <a href="/login">Log in</a>
-        </p>
+            <form action="/user" method="POST">
+                <div class="group">
+                    <label for="name">FULL NAME</label>
+                    <input type="text" id="name" name="name" placeholder="Your name" autocomplete="name" maxlength="100" required>
+                </div>
+                <div class="group">
+                    <label for="email">EMAIL ADDRESS</label>
+                    <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+                </div>
+                <div class="group">
+                    <label for="password">PASSWORD</label>
+                    <input type="password" id="password" name="password" placeholder="At least 8 characters" autocomplete="new-password" minlength="8" required>
+                    <p class="hint">Use at least 8 characters.</p>
+                </div>
+                <button class="submit" type="submit">Create account&nbsp; →</button>
+            </form>
+            <p class="footer">Already have an account? <a href="/login">Sign in</a></p>
+        </section>
     </main>
 </body>
 </html>
