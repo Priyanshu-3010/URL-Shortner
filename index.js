@@ -5,11 +5,14 @@ const app = require("./app");
 const { connectToMongoDB } = require("./connect");
 
 const PORT = process.env.PORT || 8001;
-const MONGO_URI =
-    process.env.MONGO_URI || "mongodb://localhost:27017/short-url";
+const MONGO_URI = process.env.MONGO_URI;
 
 async function startServer() {
     try {
+        if (!MONGO_URI) {
+            throw new Error("MONGO_URI is missing in environment variables");
+        }
+
         await connectToMongoDB(MONGO_URI);
         console.log("Connected to MongoDB");
 
