@@ -4,7 +4,7 @@ A full-stack URL shortener built with **Node.js, Express.js, MongoDB, and EJS**.
 
 ## 🚀 Live Demo
 
-**Live Website:** [Add Your Vercel Deployment URL Here](https://url-shortner-one-navy.vercel.app/)
+**Live Website:** [Click me](https://url-shortner-one-navy.vercel.app/)
 
 ## ✨ Features
 
