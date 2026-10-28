@@ -1,12 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | Shortly</title>
+
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
+
         :root {
             --bg: #0b1020;
             --panel: #131a2e;
@@ -17,129 +18,314 @@
             --purple: #a78bfa;
             --danger: #fb7185;
         }
+
         body {
             font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
             background: radial-gradient(ellipse at top left, #202452 0%, var(--bg) 48%);
             color: var(--text);
             min-height: 100vh;
         }
+
         button, input { font: inherit; }
         button, a { -webkit-tap-highlight-color: transparent; }
         a { color: inherit; }
+
         .nav {
-            display: flex; justify-content: space-between; align-items: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             padding: 20px max(5%, calc((100% - 1160px)/2));
             border-bottom: 1px solid #ffffff12;
-            background: #0b1020b8; gap: 20px;
+            background: #0b1020b8;
+            gap: 20px;
         }
-        .brand { font-size: 25px; font-weight: 850; letter-spacing: -1px; }
+
+        .brand {
+            font-size: 25px;
+            font-weight: 850;
+            letter-spacing: -1px;
+        }
+
         .brand span { color: var(--accent); }
-        .nav-right { display: flex; align-items: center; gap: 16px; }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
         .user-label { color: var(--muted); font-size: 13px; }
+
         .logout {
-            color: #e0e7ff; text-decoration: none; font-size: 13px;
-            padding: 10px 15px; border: 1px solid var(--border); border-radius: 10px;
+            color: #e0e7ff;
+            text-decoration: none;
+            font-size: 13px;
+            padding: 10px 15px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
         }
+
         .logout:hover { background: #ffffff0c; }
-        .container { max-width: 1160px; width: 90%; margin: 48px auto 70px; }
-        .eyebrow {
-            color: var(--purple); font-size: 12px; text-transform: uppercase;
-            letter-spacing: 2px; font-weight: 800; margin-bottom: 12px;
+
+        .container {
+            max-width: 1160px;
+            width: 90%;
+            margin: 48px auto 70px;
         }
-        h1 { font-size: clamp(32px, 5vw, 46px); letter-spacing: -1.6px; line-height: 1.15; }
-        .subtitle { color: var(--muted); margin-top: 12px; line-height: 1.7; }
+
+        .eyebrow {
+            color: var(--purple);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-size: clamp(32px, 5vw, 46px);
+            letter-spacing: -1.6px;
+            line-height: 1.15;
+        }
+
+        .subtitle {
+            color: var(--muted);
+            margin-top: 12px;
+            line-height: 1.7;
+        }
+
         .hero { margin-bottom: 32px; }
+
         .card {
             background: linear-gradient(145deg, #171f36, #11182a);
-            border: 1px solid var(--border); border-radius: 20px;
-            padding: 27px; box-shadow: 0 18px 60px #00000020;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 27px;
+            box-shadow: 0 18px 60px #00000020;
         }
+
         .card-heading { font-size: 18px; font-weight: 750; margin-bottom: 7px; }
-        .card-description { color: var(--muted); font-size: 13px; margin-bottom: 23px; line-height: 1.6; }
+
+        .card-description {
+            color: var(--muted);
+            font-size: 13px;
+            margin-bottom: 23px;
+            line-height: 1.6;
+        }
+
         .form-grid {
-            display: grid; grid-template-columns: minmax(0, 1fr) minmax(180px, .48fr) auto;
-            gap: 12px; align-items: end;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) minmax(180px, .48fr) auto;
+            gap: 12px;
+            align-items: end;
         }
-        label { display: block; color: #c8d1e6; font-size: 12px; margin-bottom: 9px; font-weight: 650; }
+
+        label {
+            display: block;
+            color: #c8d1e6;
+            font-size: 12px;
+            margin-bottom: 9px;
+            font-weight: 650;
+        }
+
         input {
-            width: 100%; background: #0b1121; color: var(--text);
-            border: 1px solid #303b57; border-radius: 11px;
-            padding: 14px; outline: none; min-width: 0;
+            width: 100%;
+            background: #0b1121;
+            color: var(--text);
+            border: 1px solid #303b57;
+            border-radius: 11px;
+            padding: 14px;
+            outline: none;
+            min-width: 0;
         }
+
         input::placeholder { color: #68758f; }
-        input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px #818cf81c; }
+
+        input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px #818cf81c;
+        }
+
         .field-hint { font-size: 11px; color: #8290ac; margin-top: 8px; }
+
         .btn {
-            border: 0; border-radius: 11px; padding: 14px 19px;
-            font-weight: 750; cursor: pointer; transition: .2s;
+            border: 0;
+            border-radius: 11px;
+            padding: 14px 19px;
+            font-weight: 750;
+            cursor: pointer;
+            transition: .2s;
         }
+
         .btn:hover { transform: translateY(-1px); filter: brightness(1.08); }
+
         .btn:disabled { opacity: .6; cursor: wait; transform: none; }
-        .btn-primary { color: white; background: linear-gradient(110deg, #6366f1, #8b5cf6); }
-        .btn-secondary { background: #202a43; border: 1px solid #34405e; color: #e0e7ff; }
-        .btn-danger { background: #3a1b2b; border: 1px solid #713044; color: #fda4af; padding: 9px 12px; }
+
+        .btn-primary {
+            color: white;
+            background: linear-gradient(110deg, #6366f1, #8b5cf6);
+        }
+
+        .btn-danger {
+            background: #3a1b2b;
+            border: 1px solid #713044;
+            color: #fda4af;
+            padding: 9px 12px;
+        }
+
         .notice {
-            display: none; padding: 13px 15px; border-radius: 11px;
-            font-size: 13px; margin-top: 17px; line-height: 1.5;
+            display: none;
+            padding: 13px 15px;
+            border-radius: 11px;
+            font-size: 13px;
+            margin-top: 17px;
+            line-height: 1.5;
+            overflow-wrap: anywhere;
         }
+
         .notice.show { display: block; }
-        .notice.success { background: #123629; color: #86efac; border: 1px solid #226548; }
-        .notice.error { background: #3a1b2b; color: #fda4af; border: 1px solid #713044; }
+
+        .notice.success {
+            background: #123629;
+            color: #86efac;
+            border: 1px solid #226548;
+        }
+
+        .notice.error {
+            background: #3a1b2b;
+            color: #fda4af;
+            border: 1px solid #713044;
+        }
+
         .stats {
-            display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 16px; margin: 25px 0 35px;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 16px;
+            margin: 25px 0 35px;
         }
+
         .stat {
-            background: #121a2d; border: 1px solid var(--border);
-            border-radius: 16px; padding: 21px;
+            background: #121a2d;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 21px;
         }
+
         .stat-label { color: var(--muted); font-size: 12px; }
-        .stat-value { font-size: 30px; font-weight: 800; margin-top: 9px; letter-spacing: -1px; }
+
+        .stat-value {
+            font-size: 30px;
+            font-weight: 800;
+            margin-top: 9px;
+            letter-spacing: -1px;
+        }
+
         .section-heading {
-            display: flex; justify-content: space-between; align-items: center;
-            gap: 15px; margin-bottom: 17px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 17px;
         }
+
         .section-heading h2 { font-size: 21px; }
+
         .count { color: var(--muted); font-size: 13px; }
+
         .table-container {
-            border: 1px solid var(--border); background: #121a2d;
-            border-radius: 17px; overflow: hidden;
+            border: 1px solid var(--border);
+            background: #121a2d;
+            border-radius: 17px;
+            overflow: hidden;
         }
+
         .table-scroll { overflow-x: auto; }
+
         table { width: 100%; border-collapse: collapse; min-width: 760px; }
+
         th {
-            text-align: left; padding: 16px; background: #192239;
-            color: #9eabc5; font-size: 11px; text-transform: uppercase;
-            letter-spacing: .8px; white-space: nowrap;
+            text-align: left;
+            padding: 16px;
+            background: #192239;
+            color: #9eabc5;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            white-space: nowrap;
         }
-        td { padding: 17px 16px; border-top: 1px solid #27314b; font-size: 13px; }
+
+        td {
+            padding: 17px 16px;
+            border-top: 1px solid #27314b;
+            font-size: 13px;
+        }
+
         tbody tr:hover { background: #ffffff04; }
-        .short-link { color: #a5b4fc; font-weight: 750; text-decoration: none; }
+
+        .short-link {
+            color: #a5b4fc;
+            font-weight: 750;
+            text-decoration: none;
+        }
+
         .short-link:hover { text-decoration: underline; }
+
         .original {
-            display: block; max-width: 230px; overflow: hidden;
-            text-overflow: ellipsis; white-space: nowrap; color: #c0c9dc;
+            display: block;
+            max-width: 230px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #c0c9dc;
         }
+
         .click-count {
-            display: inline-block; min-width: 33px; text-align: center;
-            padding: 5px 9px; border-radius: 8px; background: #202a43; color: #dbe4ff;
+            display: inline-block;
+            min-width: 33px;
+            text-align: center;
+            padding: 5px 9px;
+            border-radius: 8px;
+            background: #202a43;
+            color: #dbe4ff;
         }
+
         .actions { display: flex; gap: 8px; align-items: center; }
+
         .text-btn {
-            background: none; border: 1px solid #34405e; color: #dbe4ff;
-            border-radius: 8px; padding: 8px 10px; cursor: pointer; font-size: 12px;
+            background: none;
+            border: 1px solid #34405e;
+            color: #dbe4ff;
+            border-radius: 8px;
+            padding: 8px 10px;
+            cursor: pointer;
+            font-size: 12px;
         }
+
         .text-btn:hover { background: #202a43; }
+
         .empty { padding: 55px 20px; text-align: center; }
         .empty-icon { font-size: 36px; margin-bottom: 12px; }
         .empty h3 { font-size: 17px; }
-        .empty p { color: var(--muted); font-size: 13px; margin-top: 8px; }
-        footer { text-align: center; color: #6f7b95; font-size: 12px; margin-top: 35px; }
+
+        .empty p {
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 8px;
+        }
+
+        footer {
+            text-align: center;
+            color: #6f7b95;
+            font-size: 12px;
+            margin-top: 35px;
+        }
+
         @media (max-width: 850px) {
             .form-grid { grid-template-columns: 1fr 1fr; }
             .form-grid .submit-field { grid-column: 1 / -1; }
             .form-grid .submit-field button { width: 100%; }
         }
+
         @media (max-width: 600px) {
             .nav { padding: 17px 5%; }
             .brand { font-size: 22px; }
@@ -156,6 +342,7 @@
         }
     </style>
 </head>
+
 <body>
     <nav class="nav">
         <a href="/" class="brand" style="text-decoration:none">shortly<span>.</span></a>
@@ -183,18 +370,24 @@
                         <input type="url" id="url" name="url"
                             placeholder="https://example.com/my-page" required>
                     </div>
+
                     <div>
                         <label for="customAlias">CUSTOM ALIAS (OPTIONAL)</label>
                         <input type="text" id="customAlias" name="customAlias"
-                            placeholder="my-portfolio" pattern="[a-zA-Z0-9_-]{3,30}"
+                            placeholder="my-portfolio"
+                            pattern="[a-zA-Z0-9_-]{3,30}"
                             title="3–30 letters, numbers, hyphens or underscores">
                         <p class="field-hint">3–30 characters: letters, numbers, - or _</p>
                     </div>
+
                     <div class="submit-field">
-                        <button class="btn btn-primary" id="create-btn" type="submit">Create link ↗</button>
+                        <button class="btn btn-primary" id="create-btn" type="submit">
+                            Create link ↗
+                        </button>
                     </div>
                 </div>
             </form>
+
             <div id="form-notice" class="notice" role="status" aria-live="polite"></div>
         </section>
 
@@ -203,13 +396,15 @@
                 <div class="stat-label">TOTAL LINKS</div>
                 <div class="stat-value" id="total-links"><%= urls.length %></div>
             </div>
+
             <div class="stat">
                 <div class="stat-label">TOTAL CLICKS</div>
-                <div class="stat-value"><%= urls.reduce((sum, item) => sum + item.visitHistory.length, 0) %></div>
+                <div class="stat-value" id="total-clicks"><%= urls.reduce((sum, item) => sum + item.visitHistory.length, 0) %></div>
             </div>
+
             <div class="stat">
                 <div class="stat-label">CUSTOM LINKS</div>
-                <div class="stat-value"><%= urls.filter(item => item.shortId.length !== 8).length %></div>
+                <div class="stat-value" id="custom-links"><%= urls.filter(item => item.shortId.length !== 8).length %></div>
             </div>
         </section>
 
@@ -241,12 +436,23 @@
                                 <% urls.forEach(url => { %>
                                     <tr data-short-id="<%= url.shortId %>">
                                         <td>
-                                            <a class="short-link" href="/<%= encodeURIComponent(url.shortId) %>" target="_blank" rel="noopener noreferrer">
+                                            <a class="short-link"
+                                                href="/<%= encodeURIComponent(url.shortId) %>"
+                                                target="_blank"
+                                                rel="noopener noreferrer">
                                                 /<%= url.shortId %>
                                             </a>
                                         </td>
-                                        <td><a class="original" href="<%= url.redirectURL %>" target="_blank" rel="noopener noreferrer"><%= url.redirectURL %></a></td>
+
+                                        <td>
+                                            <a class="original"
+                                                href="<%= url.redirectURL %>"
+                                                target="_blank"
+                                                rel="noopener noreferrer"><%= url.redirectURL %></a>
+                                        </td>
+
                                         <td><span class="click-count"><%= url.visitHistory.length %></span></td>
+
                                         <td>
                                             <div class="actions">
                                                 <button class="text-btn copy-btn" type="button">Copy</button>
@@ -275,6 +481,27 @@
             notice.className = "notice show " + type;
         }
 
+        function updateSummary() {
+            const rows = document.querySelectorAll("#links-body tr[data-short-id]");
+            let totalClicks = 0;
+
+            rows.forEach(row => {
+                totalClicks += Number(
+                    row.querySelector(".click-count")?.textContent || 0
+                );
+            });
+
+            document.getElementById("total-clicks").textContent = totalClicks;
+            document.getElementById("total-links").textContent = rows.length;
+            document.getElementById("custom-links").textContent =
+                Array.from(rows).filter(row => {
+                    const shortId = row.dataset.shortId;
+                    return shortId.length !== 8;
+                }).length;
+
+            document.querySelector(".count").textContent = rows.length + " total";
+        }
+
         function makeActionButton(text, className, handler) {
             const button = document.createElement("button");
             button.type = "button";
@@ -287,6 +514,7 @@
         function addURLRow(item) {
             const container = document.getElementById("links-container");
             const empty = document.getElementById("empty-state");
+
             if (empty) empty.remove();
 
             let table = document.getElementById("links-body");
@@ -295,10 +523,18 @@
                 container.innerHTML = `
                     <div class="table-scroll">
                         <table>
-                            <thead><tr><th>Short link</th><th>Destination</th><th>Clicks</th><th>Actions</th></tr></thead>
+                            <thead>
+                                <tr>
+                                    <th>Short link</th>
+                                    <th>Destination</th>
+                                    <th>Clicks</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
                             <tbody id="links-body"></tbody>
                         </table>
                     </div>`;
+
                 table = document.getElementById("links-body");
             }
 
@@ -332,21 +568,23 @@
             const actionsCell = document.createElement("td");
             const actions = document.createElement("div");
             actions.className = "actions";
-            actions.appendChild(makeActionButton("Copy", "text-btn copy-btn", () => copyLink(item.id)));
-            actions.appendChild(makeActionButton("Delete", "btn btn-danger delete-btn", () => deleteLink(item.id)));
-            actionsCell.appendChild(actions);
 
+            actions.appendChild(
+                makeActionButton("Copy", "text-btn copy-btn", () => copyLink(item.id))
+            );
+
+            actions.appendChild(
+                makeActionButton("Delete", "btn btn-danger delete-btn", () => deleteLink(item.id))
+            );
+
+            actionsCell.appendChild(actions);
             row.append(shortCell, originalCell, clicksCell, actionsCell);
             table.prepend(row);
 
-            document.getElementById("total-links").textContent =
-                Number(document.getElementById("total-links").textContent) + 1;
-
-            const total = document.querySelector(".count");
-            total.textContent = document.querySelectorAll("#links-body tr").length + " total";
+            updateSummary();
         }
 
-        form.addEventListener("submit", async (event) => {
+        form.addEventListener("submit", async event => {
             event.preventDefault();
 
             const url = document.getElementById("url").value.trim();
@@ -360,7 +598,10 @@
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     credentials: "same-origin",
-                    body: JSON.stringify({ url, ...(customAlias ? { customAlias } : {}) })
+                    body: JSON.stringify({
+                        url,
+                        ...(customAlias ? { customAlias } : {})
+                    })
                 });
 
                 const data = await response.json();
@@ -370,9 +611,15 @@
                 }
 
                 addURLRow({ id: data.id, redirectURL: url });
+
                 document.getElementById("customAlias").value = "";
                 document.getElementById("url").value = "";
-                showNotice("Your short link was created: " + window.location.origin + "/" + data.id, "success");
+
+                showNotice(
+                    "Your short link was created: " +
+                    window.location.origin + "/" + data.id,
+                    "success"
+                );
             } catch (error) {
                 showNotice(error.message || "Request failed. Please try again.", "error");
             } finally {
@@ -383,11 +630,15 @@
 
         async function copyLink(shortId) {
             const link = window.location.origin + "/" + shortId;
+
             try {
                 await navigator.clipboard.writeText(link);
                 showNotice("Copied: " + link, "success");
             } catch {
-                showNotice("Copy was blocked by the browser. Copy this link manually: " + link, "error");
+                showNotice(
+                    "Copy was blocked by the browser. Copy this link manually: " + link,
+                    "error"
+                );
             }
         }
 
@@ -395,26 +646,29 @@
             if (!confirm("Delete this short link? This action cannot be undone.")) return;
 
             try {
-                const response = await fetch("/url/" + encodeURIComponent(shortId), {
-                    method: "DELETE",
-                    credentials: "same-origin"
-                });
+                const response = await fetch(
+                    "/url/" + encodeURIComponent(shortId),
+                    {
+                        method: "DELETE",
+                        credentials: "same-origin"
+                    }
+                );
+
                 const data = await response.json();
 
                 if (!response.ok) {
                     throw new Error(data.error || "Could not delete link.");
                 }
 
-                const row = document.querySelector(`tr[data-short-id="${CSS.escape(shortId)}"]`);
+                const row = Array.from(
+                    document.querySelectorAll("#links-body tr[data-short-id]")
+                ).find(row => row.dataset.shortId === shortId);
+
                 if (row) row.remove();
 
-                document.getElementById("total-links").textContent =
-                    Math.max(0, Number(document.getElementById("total-links").textContent) - 1);
+                const remainingRows = document.querySelectorAll("#links-body tr");
 
-                const total = document.querySelectorAll("#links-body tr").length;
-                document.querySelector(".count").textContent = total + " total";
-
-                if (total === 0) {
+                if (remainingRows.length === 0) {
                     document.getElementById("links-container").innerHTML = `
                         <div class="empty" id="empty-state">
                             <div class="empty-icon">↗</div>
@@ -423,6 +677,7 @@
                         </div>`;
                 }
 
+                updateSummary();
                 showNotice("Short link deleted successfully.", "success");
             } catch (error) {
                 showNotice(error.message || "Could not delete link.", "error");
@@ -442,6 +697,49 @@
                 deleteLink(row.dataset.shortId);
             });
         });
+
+        // Refresh analytics every 5 seconds without reloading the page.
+        let analyticsRefreshInProgress = false;
+
+        async function refreshAnalytics() {
+            if (analyticsRefreshInProgress || document.hidden) return;
+
+            analyticsRefreshInProgress = true;
+
+            try {
+                const rows = Array.from(
+                    document.querySelectorAll("#links-body tr[data-short-id]")
+                );
+
+                await Promise.all(rows.map(async row => {
+                    const shortId = row.dataset.shortId;
+
+                    try {
+                        const response = await fetch(
+                            "/url/analytics/" + encodeURIComponent(shortId),
+                            { credentials: "same-origin" }
+                        );
+
+                        if (!response.ok) return;
+
+                        const data = await response.json();
+                        const clickElement = row.querySelector(".click-count");
+
+                        if (clickElement) {
+                            clickElement.textContent = data.totalClicks;
+                        }
+                    } catch (error) {
+                        console.error("Analytics refresh failed:", error);
+                    }
+                }));
+
+                updateSummary();
+            } finally {
+                analyticsRefreshInProgress = false;
+            }
+        }
+
+        setInterval(refreshAnalytics, 5000);
     </script>
 </body>
 </html>
