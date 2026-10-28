@@ -8,7 +8,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js",
-    "test": "node --test"
+    "test": "node --test test/app.test.js test/auth.test.js test/url.test.js"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
